@@ -1,0 +1,17 @@
+# Reners
+
+A super simple utility to massively rename your files
+
+### Usage
+
+```
+$ reners <starting_folder> <string_to_search> <string_to_replace>
+```
+
+For example:
+
+```
+$ reners ./foo bar baz
+```
+
+Renames all the files inside the `foo` folder (and recursively in all its subfolders) the files that contains `bar` with `baz` (it replace `bar` with `baz`).
