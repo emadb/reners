@@ -3,15 +3,19 @@ use std::env;
 use std::fs;
 use std::path::Path;
 
+fn print_help() {
+    println!(
+        "{}",
+        "Usage: reners <starting_folder> <pattern_to_search> <replace_value>".yellow()
+    );
+    println!("More info https://github.com/emadb");
+}
+
 fn main() -> std::io::Result<()> {
     let args: Vec<String> = env::args().collect();
 
-    if args[1] == "--help" {
-        println!(
-            "{}",
-            "Usage: reners <starting_folder> <pattern_to_search> <replace_value>".yellow()
-        );
-        println!("More info https://github.com/emadb");
+    if args.len() <= 1 || args[1] == "--help" {
+        print_help();
         std::process::exit(1);
     }
 
@@ -31,7 +35,6 @@ fn main() -> std::io::Result<()> {
     }
 
     _ = list_content(path, to_find, to_replace);
-
     Ok(())
 }
 
