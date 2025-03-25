@@ -15,17 +15,20 @@ fn main() -> std::io::Result<()> {
         std::process::exit(1);
     }
 
-    if args.len() != 4 {
+    if args.len() != 3 {
         eprintln!(
             "{}",
-            "Usage: reners <starting_folder> <pattern_to_search> <replace_value>".red()
+            "Usage: reners <starting_folder> <pattern_to_search> [<replace_value> = \"\"]".red()
         );
         std::process::exit(1);
     }
 
     let path = args[1].as_str();
     let to_find = args[2].as_str();
-    let to_replace = args[3].as_str();
+    let mut to_replace = "";
+    if args.len() == 4 {
+        to_replace = args[3].as_str();
+    }
 
     _ = list_content(path, to_find, to_replace);
 
@@ -56,7 +59,7 @@ fn try_rename(path: &Path, to_find: &str, to_replace: &str) {
             if let Err(e) = fs::rename(path, &new_path) {
                 eprintln!("{} {}", "Failed to rename:".red(), e);
             } else {
-                println!("Renamed: {:?}", new_path);
+                println!("Renamed: {} => {:?}", file_name, new_path);
             }
         }
     }
